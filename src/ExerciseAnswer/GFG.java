@@ -1,4 +1,4 @@
-package Test;
+package ExerciseAnswer;
 
 //查找数组的局部最小值
 class GFG {
