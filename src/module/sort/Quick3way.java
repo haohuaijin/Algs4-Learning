@@ -9,7 +9,7 @@ public class Quick3way {
         sort(a, 0, a.length-1);
         assert isSorted(a);
     }
-
+    //三向切分
     public static void sort(Comparable[] a, int lo, int hi){
         if(lo >= hi) return;
         int lt = lo, i = lo+1, gt = hi;

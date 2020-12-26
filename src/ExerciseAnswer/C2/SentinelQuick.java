@@ -1,15 +1,21 @@
-package module.sort;
+package ExerciseAnswer.C2;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
-public class Quick {
-    /*
-     * The entry to sort.
-     */
+public class SentinelQuick{
     public static void sort(Comparable[] a){
-        StdRandom.shuffle(a);
+        //StdRandom.shuffle(a);
+        int N = a.length, index = 0;
+        //通过将数组的最大元素放到数组的最后面可以(哨兵),可以使免去while里面的判断条件
+        //内部子数组的右边界可以用左子数组的左边界充当哨兵
+        Comparable max = a[0];
+        for(int i=0; i < N; i++)
+            if(less(max, a[i])) {max = a[i]; index = 0;}
+//        StdOut.println("the max is " + max + ", index is " + index);
+        exch(a, index, N-1);
+        show(a);
         sort(a, 0, a.length-1);
         assert isSorted(a);
     }
@@ -24,9 +30,10 @@ public class Quick {
     public static int partition(Comparable[] a, int lo, int hi){
         int i = lo, j = hi+1;
         Comparable v = a[lo];
+//        StdOut.println("the v is " + v + ", the lo is " + lo);
         while(true){
-            while(less(a[++i], v)) if(i == hi) break;
-            while(less(v, a[--j])) if(j == lo) break;
+            while(less(a[++i], v));// if(i == hi) break;
+            while(less(v, a[--j]));
             if(i >= j) break;
             exch(a, i, j);
         }
@@ -60,3 +67,8 @@ public class Quick {
         show(a);
     }
 }
+
+
+
+
+
