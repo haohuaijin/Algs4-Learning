@@ -1,16 +1,13 @@
-package module.sort;
+package ExerciseAnswer.C2;
 
-import java.util.Comparator;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdIn;
+import module.sort.Insertion;
 
-public class MergeX {
-    private static final int CUTOFF = 7;  // cutoff to insertion sort
+public class MergeOP {
+    private static final int MaxInsertionNumber = 15;
 
     private static void merge(Comparable[] src, Comparable[] dst, int lo, int mid, int hi) {
-        // precondition: src[lo .. mid] and src[mid+1 .. hi] are sorted subarrays
-        assert isSorted(src, lo, mid);
-        assert isSorted(src, mid+1, hi);
 
         int i = lo, j = mid+1;
         for (int k = lo; k <= hi; k++) {
@@ -19,56 +16,41 @@ public class MergeX {
             else if (less(src[j], src[i])) dst[k] = src[j++];   // to ensure stability
             else                           dst[k] = src[i++];
         }
-        assert isSorted(dst, lo, hi);
     }
 
     private static void sort(Comparable[] src, Comparable[] dst, int lo, int hi) {
-        if (hi <= lo + CUTOFF) {
+        //1. 小数组用插入
+        if (hi <= lo + MaxInsertionNumber) {
             Insertion.sort(dst, lo, hi);
             return;
         }
+
         int mid = lo + (hi - lo) / 2;
+        //3. 在递归中交换参数
         sort(dst, src, lo, mid);
         sort(dst, src, mid+1, hi);
 
         // using System.arraycopy() is a bit faster than the above loop
-        if (!less(src[mid+1], src[mid])) {
+        if (!less(src[mid+1], src[mid])) { //2. 检测数组是不是已经有序,有序就将排序好的copy会dst数组
             System.arraycopy(src, lo, dst, lo, hi - lo + 1);
             return;
         }
+        //3. 在递归中交换参数
         merge(src, dst, lo, mid, hi);
     }
 
     public static void sort(Comparable[] a) {
         Comparable[] aux = a.clone();
         sort(aux, a, 0, a.length-1);
-        assert isSorted(a);
     }
-
-    private static void exch(Object[] a, int i, int j) {
-        Object swap = a[i];
-        a[i] = a[j];
-        a[j] = swap;
-    }
-
-    // is a[i] < a[j]?
     private static boolean less(Comparable a, Comparable b) {
         return a.compareTo(b) < 0;
     }
 
-    private static boolean isSorted(Comparable[] a) {
-        return isSorted(a, 0, a.length - 1);
-    }
-
-    private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
 
     private static void show(Object[] a) {
-        for (int i = 0; i < a.length; i++) {
-            StdOut.print(a[i] + " ");
+        for (Object o : a) {
+            StdOut.print(o + " ");
         }
     }
 
