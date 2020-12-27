@@ -6,4 +6,8 @@
 2.3 快速排序
 2.3.16 BestCaseForQuick.java
 2.3.17 SentinelQuick.java
+2.3.22 Quick3wayJD.java
 
+2.4 优先队列，堆排序 //优先队列没有实现大小可调整
+2.4.25 CubeSum.java
+2.4.27 MaxPQ.java
