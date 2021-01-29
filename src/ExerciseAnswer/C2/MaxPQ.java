@@ -11,6 +11,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
         pq = (Key[]) new Comparable[maxN + 1];
     }
 
+    //modify
     public void insert(Key v) {
         pq[++N] = v;
         swim(N);
@@ -18,6 +19,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
         else if(less(v, min)) min = v;
     }
 
+    //modify
     public Key delMax() {
         Key max = pq[1];
         exch(1, N--);
@@ -26,7 +28,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
         if(N == 0) min = null;
         return max;
     }
-
+    //modify
     public Key min(){
         return min;
     }
